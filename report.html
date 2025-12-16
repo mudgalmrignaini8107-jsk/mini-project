@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report an Issue - City Care Portal</title>
+
+    <style>
+        /* Google font: Poppins for clean, modern look */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+        /* Color Variables for Consistency */
+        :root {
+            --color-primary: #1976D2; /* Deep Blue */
+            --color-accent: #00BCD4; /* Cyan/Aqua */
+            --color-danger: #D32F2F; /* Red for errors */
+            --color-bg: #F0F4F7; /* Light background */
+            --color-text-dark: #34495e;
+            --color-success: #2E7D32;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--color-bg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .report-container {
+            background-color: #fff;
+            width: 100%;
+            max-width: 550px; /* Slightly wider for the content */
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); 
+        }
+
+        h2 {
+            color: var(--color-primary);
+            font-weight: 700;
+            margin-bottom: 25px;
+            font-size: 28px;
+            border-bottom: 3px solid var(--color-accent);
+            padding-bottom: 10px;
+            text-align: center;
+        }
+
+        /* Form Group for Symmetry */
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--color-text-dark);
+            font-size: 16px;
+        }
+
+        input[type="text"], 
+        select, 
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--color-accent);
+            box-shadow: 0 0 0 3px rgba(0, 188, 212, 0.2);
+            outline: none;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        /* File Input Custom Styling (to look better) */
+        input[type="file"] {
+            border: 2px dashed #ddd;
+            background-color: #f9f9f9;
+            padding: 15px 12px;
+            cursor: pointer;
+        }
+
+        /* Submit Button */
+        button[type="submit"] {
+            margin-top: 30px;
+            background-color: var(--color-accent);
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s, transform 0.1s;
+            box-shadow: 0 4px 10px rgba(0, 188, 212, 0.4);
+            width: 100%; /* Symmetrical width */
+        }
+
+        button[type="submit"]:hover {
+            background-color: #008C9E; /* Darker Cyan */
+            transform: translateY(-2px);
+        }
+
+        /* Custom Message Box Style (Replaces alert()) */
+        #message-box {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 500;
+            display: none; 
+        }
+        .message-success {
+            background-color: #E8F5E9; /* Light Green */
+            color: var(--color-success);
+            border: 1px solid var(--color-success);
+        }
+        .message-error {
+            background-color: #FFEBEE; /* Light Red */
+            color: var(--color-danger);
+            border: 1px solid var(--color-danger);
+            animation: shake 0.5s;
+        }
+
+        /* Optional: Add a subtle shake animation for errors */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-5px); }
+            40%, 80% { transform: translateX(5px); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="report-container">
+        <h2>Report a Civic Issue</h2>
+        <div id="message-box"></div>
+
+        <form onsubmit="return validateForm(event)">
+            
+            <div class="form-group">
+                <label for="name">Your Name</label>
+                <input type="text" id="name" placeholder="Enter your name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="issueType">Issue Type</label>
+                <select id="issueType" required>
+                    <option value="">-- Select Issue Type --</option>
+                    <option value="road">Road Damage (Pothole, Broken Tiles)</option>
+                    <option value="garbage">Garbage Problem (Missed Collection, Illegal Dump)</option>
+                    <option value="water">Water Leakage / Drainage Issue</option>
+                    <option value="electricity">Streetlight / Electricity Issue</option>
+                    <option value="other">Other Infrastructure Problem</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="location">Precise Location (Geo-Tagged)</label>
+                <input type="text" id="location" placeholder="Street name, landmark, or GPS coordinates" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Detailed Description</label>
+                <textarea id="description" placeholder="Describe the issue briefly and its severity" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="photo">Upload Photo (For AI Validation)</label>
+                <input type="file" id="photo" accept="image/*">
+            </div>
+
+            <button type="submit">Submit Report</button>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+        // Supabase Initialization (now correct)
+        const SUPABASE_URL = "https://gepsqeueluuztzhrrkqf.supabase.co";
+        const SUPABASE_KEY = "YOUR_PUBLIC_ANON_KEY"; // REMEMBER TO REPLACE THIS WITH YOUR ACTUAL KEY
+
+        // Ensure supabase.createClient is called correctly
+        // The library exposes 'createClient' directly after loading
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+
+        // Function to replace alert() with custom message box
+        function displayMessage(type, message) {
+            const messageBox = document.getElementById('message-box');
+            messageBox.textContent = message;
+            messageBox.className = ''; // Clear existing classes
+            messageBox.classList.add(type === 'success' ? 'message-success' : 'message-error');
+            messageBox.style.display = 'block';
+
+            // Optional: Hide message after a few seconds
+            setTimeout(() => {
+                messageBox.style.display = 'none';
+            }, 5000); // 5 seconds
+        }
+
+        // Async function for form submission to allow for Supabase interaction
+        async function validateForm(event) {
+            // Prevent default form submission
+            event.preventDefault(); 
+            
+            const name = document.getElementById("name").value.trim();
+            const issueType = document.getElementById("issueType").value;
+            const location = document.getElementById("location").value.trim();
+            const description = document.getElementById("description").value.trim();
+            const photoInput = document.getElementById("photo");
+            const photoFile = photoInput.files[0]; // Get the first selected file
+
+            // Clear previous messages
+            document.getElementById('message-box').style.display = 'none';
+
+            // Validation Logic
+            if (name === "") {
+                displayMessage("error", "Name field cannot be empty.");
+                return false;
+            }
+            if (issueType === "") {
+                displayMessage("error", "Please select an issue type.");
+                return false;
+            }
+            if (location === "") {
+                displayMessage("error", "Location field cannot be empty.");
+                return false;
+            }
+            if (description === "") {
+                displayMessage("error", "Description field cannot be empty.");
+                return false;
+            }
+            
+            // If all basic validations pass, attempt to submit to Supabase
+            try {
+                // 1. Handle Photo Upload (if a photo is selected)
+                let photoUrl = null;
+                if (photoFile) {
+                    const fileExtension = photoFile.name.split('.').pop();
+                    const fileName = `${Date.now()}-${Math.random().toString(36).substring(2, 9)}.${fileExtension}`;
+                    
+                    const { data, error: uploadError } = await supabase.storage
+                        .from('issue-photos') // Replace with your actual Supabase bucket name
+                        .upload(fileName, photoFile);
+
+                    if (uploadError) {
+                        console.error('Photo upload error:', uploadError.message);
+                        displayMessage("error", "Failed to upload photo. Please try again.");
+                        return; // Stop submission if photo upload fails
+                    }
+                    // Get public URL of the uploaded photo
+                    const { data: publicUrlData } = supabase.storage
+                        .from('issue-photos')
+                        .getPublicUrl(fileName);
+                    photoUrl = publicUrlData.publicUrl;
+                }
+
+                // 2. Insert issue data into Supabase table
+                const { data, error } = await supabase
+                    .from('issues') // Replace 'issues' with your actual Supabase table name
+                    .insert([
+                        { 
+                            reporter_name: name, 
+                            issue_type: issueType, 
+                            location: location, 
+                            description: description,
+                            photo_url: photoUrl, // Store the photo URL if uploaded
+                            status: 'New' // Default status
+                        },
+                    ])
+                    .select(); // Request the inserted data back
+
+                if (error) {
+                    console.error('Supabase insert error:', error.message);
+                    displayMessage("error", `Error submitting report: ${error.message}`);
+                } else {
+                    const trackingId = data[0] ? data[0].id : `#CCP${Math.floor(Math.random() * 9000 + 1000)}`;
+                    displayMessage("success", `Report submitted successfully! Tracking ID: ${trackingId}`);
+                    // Optionally, clear the form after successful submission
+                    event.target.reset(); 
+                }
+
+            } catch (err) {
+                console.error('Unhandled error during submission:', err);
+                displayMessage("error", "An unexpected error occurred. Please try again.");
+            }
+        }
+    </script>
+
+</body>
+</html>

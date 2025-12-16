@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reported Issues - City Care Portal</title>
+
+    <style>
+       
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+        
+        :root {
+            --color-primary: #1976D2; 
+            --color-accent: #00BCD4; 
+            --color-success: #28a745; 
+            --color-warning: #FFC107; 
+            --color-bg: #F0F4F7; 
+            --color-text-dark: #34495e;
+            --color-text-light: #596d81;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--color-bg);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .table-container {
+            background-color: white;
+            width: 100%;
+            max-width: 1000px;
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: var(--color-primary);
+            font-weight: 700;
+            font-size: 32px;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--color-accent);
+            display: inline-block;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 0 auto;
+        }
+
+        th {
+            background-color: var(--color-primary);
+            color: white;
+            padding: 15px 10px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        
+        th:first-child { border-top-left-radius: 8px; }
+        th:last-child { border-top-right-radius: 8px; }
+
+      
+        td {
+            padding: 12px 10px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+            color: var(--color-text-light);
+            font-size: 15px;
+        }
+        
+       
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .status-pill {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-pill.resolved {
+            background-color: #E8F5E9; 
+            color: var(--color-success);
+            border: 1px solid var(--color-success);
+        }
+
+        .status-pill.pending, .status-pill.in-review {
+            background-color: #FFF3E0; 
+            color: #E65100;
+            border: 1px solid #FF9800;
+        }
+
+        .status-pill.action-taken {
+            background-color: #E1F5FE; 
+            color: var(--color-primary);
+            border: 1px solid var(--color-primary);
+        }
+    </style>
+</head>
+<body>
+    
+    <h2>Reported Issues Tracker</h2>
+    
+    <div class="table-container">
+        <table>
+            <tr>
+                <th>Tracking ID</th>
+                <th>Issue Category</th>
+                <th>Description</th>
+                <th>Date Reported</th>
+                <th>Status</th>
+            </tr>
+            <tr>
+                <td>CCP-1001</td>
+                <td>Road Damage</td>
+                <td>Potholes near Sector 5 road, major traffic hazard.</td>
+                <td>2025-11-10</td>
+                <td><span class="status-pill pending">Pending</span></td>
+            </tr>
+            <tr>
+                <td>CCP-1002</td>
+                <td>Garbage & Waste</td>
+                <td>Overflowing bin near main market entrance.</td>
+                <td>2025-11-08</td>
+                <td><span class="status-pill resolved">Resolved</span></td>
+            </tr>
+            <tr>
+                <td>CCP-1003</td>
+                <td>Street Lights</td>
+                <td>Four lights not working on the eastern side of Tech Park.</td>
+                <td>2025-11-12</td>
+                <td><span class="status-pill in-review">In Review</span></td>
+            </tr>
+            <tr>
+                <td>CCP-1004</td>
+                <td>Water Supply</td>
+                <td>Major pipe leakage near the community center fountain.</td>
+                <td>2025-11-13</td>
+                <td><span class="status-pill action-taken">Action Taken</span></td>
+            </tr>
+            <tr>
+                <td>CCP-1005</td>
+                <td>Road Damage</td>
+                <td>Missing manhole cover on service lane. Urgent!</td>
+                <td>2025-11-14</td>
+                <td><span class="status-pill pending">Pending</span></td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

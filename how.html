@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Care Portal - How It Works</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --color-primary: #1976D2;
+            --color-accent: #00BCD4;
+            --color-danger: #D32F2F;
+            --color-bg-light: #F8F9FA;
+            --color-text-dark: #34495e;
+            --color-text-light: #596d81;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+        body { background-color: var(--color-bg-light); display: flex; flex-direction: column; min-height: 100vh; }
+
+        header {
+            background: linear-gradient(135deg, var(--color-primary), #1565C0);
+            color: white;
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+        }
+
+        .title-area { display: flex; align-items: center; gap: 15px; }
+
+        .logo-icon { width: 40px; height: 40px; fill: white; }
+
+        header h1 { font-size: 26px; font-weight: 600; letter-spacing: 0.8px; }
+
+        nav a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            margin: 0 10px;
+            padding: 10px 15px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        nav a:hover { color: var(--color-accent); background-color: rgba(255, 255, 255, 0.15); }
+
+        .moving-text {
+            background-color: var(--color-danger);
+            color: white;
+            padding: 8px;
+            font-size: 14px;
+            white-space: nowrap;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .moving-text p {
+            display: inline-block;
+            padding-left: 100%;
+            animation: move 18s linear infinite;
+        }
+
+        @keyframes move {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .container { display: flex; flex: 1; }
+
+        .sidebar {
+            width: 280px;
+            background-color: #ffffff;
+            border-right: 1px solid #e9ecef;
+            padding: 30px 0;
+            box-shadow: 3px 0 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .sidebar h2 {
+            color: var(--color-primary);
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            padding: 0 20px;
+            border-bottom: 2px solid var(--color-accent);
+            padding-bottom: 10px;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+
+        .sidebar a {
+            display: block;
+            text-decoration: none;
+            color: var(--color-text-dark);
+            margin: 5px 0;
+            padding: 15px 30px;
+            transition: all 0.2s;
+            font-size: 16px;
+            font-weight: 500;
+            border-left: 5px solid transparent;
+        }
+
+        .sidebar a:hover {
+            background-color: #E3F2FD;
+            color: var(--color-primary);
+            border-left: 5px solid var(--color-accent);
+        }
+
+        .sidebar a.active {
+            background-color: var(--color-primary);
+            color: white;
+            border-left: 5px solid var(--color-accent);
+            font-weight: 600;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .content { flex: 1; background-color: var(--color-bg-light); padding: 50px; text-align: center; }
+
+        .content-box {
+            background-color: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: left;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .content-box h2 {
+            color: var(--color-primary);
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--color-accent);
+            display: inline-block;
+        }
+
+        .content-box h3 {
+            color: var(--color-text-dark);
+            font-size: 24px;
+            font-weight: 600;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--color-accent);
+            padding-left: 10px;
+        }
+
+        .content-box p { color: var(--color-text-light); font-size: 17px; line-height: 1.7; margin-bottom: 15px; }
+
+        .content-box ol { list-style: none; counter-reset: step-counter; padding: 0; }
+
+        .content-box ol li {
+            margin-bottom: 25px;
+            padding: 15px 15px 15px 70px;
+            background-color: #F0F4F7;
+            border-radius: 8px;
+            position: relative;
+            font-size: 16px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .content-box ol li::before {
+            content: counter(step-counter);
+            counter-increment: step-counter;
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: var(--color-accent);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .highlight { color: var(--color-accent); font-weight: 600; }
+
+        footer {
+            background: var(--color-text-dark);
+            color: #ddd;
+            text-align: center;
+            padding: 18px;
+            font-size: 14px;
+            border-top: 5px solid var(--color-accent);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="title-area">
+            <svg class="logo-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15H9v-6h2v6zm4 0h-2v-6h2v6zm2-8h-1V7h-2v2h-1v-2H7v2H6V7h1V5h2v2h1V5h2v2h1V5h2v2h1v1h-1z"/>
+            </svg>
+            <h1>City Care Portal</h1>
+        </div>
+        <nav>
+            <a href="login.html">Login</a>
+            <a href="register.html">Register</a>
+            <a href="report.html">Report Issue</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <div class="moving-text">
+        <p>🚨 **SIH PS 2025: Crowdsourced Civic Resolution System** is Live! • Report, Track, Resolve • **Together, we build a better city!** 🛠️</p>
+    </div>
+
+    <div class="container">
+        <div class="sidebar">
+            <h2>Quick Links</h2>
+            <a href="about.html">About Us</a>
+            <a href="how.html" class="active">How It Works</a>
+            <a href="faq.html">FAQs</a>
+            <a href="feedback.html">Feedback</a>
+        </div>
+
+        <div class="content">
+            <div class="content-box">
+                <h2>The 5-Step Resolution Cycle</h2>
+                <p>Our platform simplifies the process of reporting and resolving civic issues by leveraging citizen input and smart technology. Here is how your report drives real change:</p>
+
+                <ol>
+                    <li>
+                        <strong>Report & Capture Evidence:</strong>
+                        <p>A citizen submits an issue with location-tagged photos and a brief description.</p>
+                    </li>
+                    <li>
+                        <strong>AI Validation & Geo-Pinning:</strong>
+                        <p>The system analyzes the image, classifies the issue, and verifies GPS coordinates.</p>
+                    </li>
+                    <li>
+                        <strong>Department Assignment & Tracking:</strong>
+                        <p>The municipal team receives the report, and the citizen gets a tracking ID.</p>
+                    </li>
+                    <li>
+                        <strong>Resolution & Action:</strong>
+                        <p>The field team fixes the issue and uploads a resolution photo.</p>
+                    </li>
+                    <li>
+                        <strong>Citizen Feedback Loop:</strong>
+                        <p>The citizen confirms whether the fix is satisfactory.</p>
+                    </li>
+                </ol>
+
+                <p style="text-align: center;">By streamlining this cycle, we aim to reduce the average resolution time by <span class="highlight">**over 40%**</span>.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2025 City Care Portal | Designed by Monika and Mrignayani | SIH PS 2025
+    </footer>
+</body>
+</html>

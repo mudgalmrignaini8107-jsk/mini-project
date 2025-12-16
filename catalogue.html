@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Issue Catalogue - City Care Portal</title>
+
+    <style>
+       
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+       
+        :root {
+            --color-primary: #1976D2; 
+            --color-accent: #00BCD4; 
+            --color-success: #28a745; 
+            --color-bg: #F0F4F7; 
+            --color-text-dark: #34495e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--color-bg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .catalogue-header {
+            text-align: center;
+            margin-bottom: 40px;
+            max-width: 800px;
+        }
+
+        h2 {
+            color: var(--color-primary);
+            font-weight: 700;
+            font-size: 32px;
+            margin-bottom: 10px;
+            border-bottom: 3px solid var(--color-accent);
+            padding-bottom: 5px;
+            display: inline-block;
+        }
+        
+        .catalogue-header p {
+            color: var(--color-text-dark);
+            font-size: 17px;
+        }
+
+        
+        .issue-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 30px;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .issue-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            border-top: 5px solid var(--color-primary);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .issue-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+            border-top-color: var(--color-accent);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 15px;
+            fill: var(--color-accent);
+        }
+
+        .issue-card h3 {
+            color: var(--color-primary);
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .issue-card p {
+            color: var(--color-text-dark);
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        /* ACTION BUTTON */
+        .report-button {
+            background-color: var(--color-success);
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+
+        .report-button:hover {
+            background-color: #218838;
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="catalogue-header">
+        <h2>Civic Issue Catalogue</h2>
+        <p>Select a category below to initiate an official report for your city.</p>
+    </div>
+
+    <div class="issue-grid">
+
+       
+        <div class="issue-card">
+           
+            <svg class="card-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15H9v-2h2v2zm0-4H9v-2h2v2zm0-4H9V7h2v2zm4 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2z"/>
+            </svg>
+            <h3>Road Damage</h3>
+            <p>Report issues related to potholes, broken asphalt, damaged pavements, or missing speed breakers on public roads.</p>
+            <button class="report-button" onclick="reportIssue('Road Damage')">Report Issue</button>
+        </div>
+
+       
+        <div class="issue-card">
+           
+            <svg class="card-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8 0-3.32 2.12-6.22 5.12-7.39L12 3.5l2.88 1.11C17.88 5.78 20 8.68 20 12c0 4.41-3.59 8-8 8zm1-9V7h-2v4h-2v2h2v2h2v-2h2v-2h-2z"/>
+            </svg>
+            <h3>Water Supply</h3>
+            <p>Use this category for water leakage in pipes, water contamination, or significant water shortage in your area.</p>
+            <button class="report-button" onclick="reportIssue('Water Supply')">Report Issue</button>
+        </div>
+
+        <div class="issue-card">
+            
+            <svg class="card-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zm2.46-7.12l1.41-1.41L12 12.59l2.12-2.12 1.41 1.41L13.41 14l2.12 2.12-1.41 1.41L12 15.41l-2.12 2.12-1.41-1.41L10.59 14l-2.13-2.12zM15.5 4l-1-1h-5l-1 1H5v2h14V4z"/>
+            </svg>
+            <h3>Garbage & Waste</h3>
+            <p>Report issues like uncollected waste, overflowing community bins, or instances of illegal dumping in public spaces.</p>
+            <button class="report-button" onclick="reportIssue('Garbage')">Report Issue</button>
+        </div>
+
+        
+        <div class="issue-card">
+            
+            <svg class="card-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 20h4V4h-4v16zm-5-3h4V7H5v10zm10 0h4V7h-4v10z"/>
+            </svg>
+            <h3>Street Lights</h3>
+            <p>Notify authorities about non-functional streetlights, damaged lamp posts, or timing issues with public lighting systems.</p>
+            <button class="report-button" onclick="reportIssue('Street Lights')">Report Issue</button>
+        </div>
+        
+    </div>
+
+    <script>
+       
+        function reportIssue(category) {
+           
+            window.location.href = "report.html?issue=" + encodeURIComponent(category);
+        }
+    </script>
+</body>
+</html>

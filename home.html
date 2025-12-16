@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Care Portal - Home</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+       
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --color-primary: #1976D2; 
+            --color-accent: #00BCD4; 
+            --color-danger: #D32F2F; 
+            --color-bg-light: #F8F9FA;
+            --color-text-dark: #34495e;
+            --color-text-light: #596d81;
+
+            
+            --chat-primary: #4f46e5; 
+            --chat-bg: #1f2937; 
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--color-bg-light); 
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; 
+        }
+
+      
+        header {
+            background: linear-gradient(135deg, var(--color-primary), #1565C0); 
+            color: white;
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); 
+            z-index: 100;
+        }
+        .title-area { 
+            display: flex; 
+            align-items: center; 
+            gap: 15px; 
+            cursor: pointer; /* To indicate it's clickable */
+            text-decoration: none; /* Remove underline from the link */
+            color: white; /* Keep color white */
+        }
+        .logo-icon { width: 40px; height: 40px; fill: white; } /* Changed fill to white for better visibility */
+        header h1 { font-size: 26px; font-weight: 600; letter-spacing: 0.8px; }
+        nav a {
+            color: rgba(255, 255, 255, 0.9); text-decoration: none; margin: 0 10px;
+            padding: 10px 15px; font-weight: 500; transition: all 0.3s ease;
+            border-radius: 8px; font-size: 15px;
+        }
+        nav a:hover { color: var(--color-accent); background-color: rgba(255, 255, 255, 0.15); }
+        .moving-text { background-color: var(--color-danger); color: white; padding: 8px; font-size: 14px; white-space: nowrap; overflow: hidden; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
+        .moving-text p { display: inline-block; padding-left: 100%; animation: move 18s linear infinite; }
+        @keyframes move { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+        .container { display: flex; flex: 1; }
+        .sidebar { width: 280px; background-color: #ffffff; border-right: 1px solid #e9ecef; padding: 30px 0; box-shadow: 3px 0 10px rgba(0, 0, 0, 0.05); }
+        .sidebar h2 { color: var(--color-primary); font-size: 20px; font-weight: 700; margin-bottom: 25px; padding: 0 20px; border-bottom: 2px solid var(--color-accent); padding-bottom: 10px; margin-left: 20px; margin-right: 20px; }
+        .sidebar a { display: block; text-decoration: none; color: var(--color-text-dark); margin: 5px 0; padding: 15px 30px; transition: all 0.2s; font-size: 16px; font-weight: 500; border-left: 5px solid transparent; }
+        .sidebar a:hover { background-color: #E3F2FD; color: var(--color-primary); border-left: 5px solid var(--color-accent); }
+        .sidebar a.active { background-color: var(--color-primary); color: white; border-left: 5px solid var(--color-accent); font-weight: 600; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); }
+        .content { flex: 1; background-color: var(--color-bg-light); padding: 50px; text-align: center; }
+        .content-box { background-color: white; border-radius: 12px; padding: 40px; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); max-width: 900px; margin: 0 auto; text-align: left; animation: fadeIn 0.8s ease-out; }
+        .content-box h2 { color: var(--color-primary); font-size: 32px; font-weight: 700; margin-bottom: 25px; padding-bottom: 10px; border-bottom: 3px solid var(--color-accent); display: inline-block; }
+        .content-box p { color: var(--color-text-light); font-size: 17px; line-height: 1.7; margin-bottom: 15px; }
+        .highlight { color: var(--color-accent); font-weight: 600; }
+        footer { background: var(--color-text-dark); color: #ddd; text-align: center; padding: 18px; font-size: 14px; border-top: 5px solid var(--color-accent); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        
+        .chatbot-fab {
+            position: fixed; bottom: 30px; right: 30px; background-color: var(--color-accent);
+            color: white; width: 60px; height: 60px; border-radius: 50%; display: flex;
+            justify-content: center; align-items: center; cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); transition: all 0.3s ease;
+            z-index: 1000; border: 4px solid white; 
+        }
+        .chatbot-fab:hover { background-color: #008C9E; transform: scale(1.05) rotate(5deg); }
+        .chatbot-fab:active { transform: scale(0.95); }
+        .chat-icon { width: 30px; height: 30px; }
+
+      
+        #chatbot-window {
+            position: fixed; bottom: 100px; right: 30px; width: 350px; height: 450px;
+            background-color: var(--chat-bg); 
+            border-radius: 12px; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            z-index: 999; display: none; overflow: hidden;
+            animation: slideIn 0.3s ease-out; border-top: 5px solid var(--color-accent);
+        }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+       
+        #chat-history::-webkit-scrollbar { width: 6px; }
+        #chat-history::-webkit-scrollbar-thumb { background-color: #6366f1; border-radius: 3px; }
+        #chat-history::-webkit-scrollbar-track { background-color: #1f2937; }
+        .option-button {
+            display: block; width: 100%; text-align: left; padding: 12px 16px;
+            margin-bottom: 8px; border-radius: 10px; background-color: #374151; 
+            color: white; transition: background-color 0.2s, transform 0.1s;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+        }
+        .option-button:hover { background-color: #4b5563; transform: translateY(-2px); }
+
+        @media (max-width: 768px) {
+            .chatbot-fab { bottom: 15px; right: 15px; width: 50px; height: 50px; }
+            #chatbot-window { bottom: 75px; right: 15px; width: 90%; height: 400px; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <a href="index.html" class="title-area"> 
+            <svg class="logo-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15H9v-6h2v6zm4 0h-2v-6h2v6zm2-8h-1V7h-2v2h-1v-2H7v2H6V7h1V5h2v2h1V5h2v2h1V5h2v2h1v1h-1z" fill="currentColor"/> 
+            </svg>
+            <h1>City Care Portal</h1>
+        </a>
+
+        <nav>
+            <a href="login.html">Login</a>
+            <a href="register.html">Register</a> 
+            <a href="report.html">Report Issue</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <div class="moving-text">
+        <p>SIH PS 2025: Crowdsourced Civic Resolution System is Live! • Report, Track, Resolve •Together, we build a better city! 🛠️</p>
+    </div>
+
+    <div class="container">
+        <div class="sidebar">
+            <h2>Quick Links</h2>
+            <a href="about.html">About Us</a>
+            <a href="how.html">How It Works</a>
+            <a href="faq.html">FAQs</a>
+            <a href="feedback.html">Feedback</a>
+        </div>
+
+        <div class="content">
+            <div class="content-box">
+                <h2>Empowering Citizens, Resolving Issues.</h2>
+                <p>Welcome to the City Care Portal, your official platform designed as the solution for the Smart India Hackathon (SIH) Problem Statement 2025 on efficient civic issue resolution.</p>
+                <p>We leverage cutting-edge technology—including Geo-tagging, AI-based Image Analysis, and real-time Crowdsourcing—to transform citizen complaints into actionable data for municipal bodies. Our goal is to drastically reduce response times and increase accountability.</p>
+                <br>
+                <p class="highlight" style="font-size: 18px; text-align: center;">Your contribution is critical.** Use the links on the left to learn more about our mission and how you can get started!</p>
+            </div>
+            
+        </div>
+    </div>
+
+    
+    
+   
+    <div class="chatbot-fab" onclick="toggleChatbot()">
+        <svg class="chat-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.693a9 9 0 01-1.395-3.218z"></path>
+        </svg>
+    </div>
+
+    
+    <div id="chatbot-window" class="flex flex-col">
+
+        
+        <div class="w-full flex flex-col h-full">
+
+            
+            <div class="p-4 bg-indigo-700 text-white shadow-md flex items-center rounded-t-xl">
+                <svg class="w-6 h-6 mr-3 text-indigo-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.693a9 9 0 01-1.395-3.218z"></path></svg>
+                <h1 class="text-xl font-bold">CivicBot 🤖</h1>
+                <p class="ml-auto text-sm opacity-75">Online</p>
+               
+                <button onclick="toggleChatbot()" class="ml-3 p-1 rounded-full hover:bg-indigo-600 transition">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+
+            
+            <div id="chat-history" class="flex-grow p-4 overflow-y-auto space-y-4 bg-gray-800">
+                
+            </div>
+
+            
+            <div id="input-area" class="p-4 bg-gray-700 flex items-center border-t border-gray-600">
+                <input type="text" id="user-input" placeholder="Type your name or message..."
+                       class="flex-grow p-3 rounded-l-lg bg-gray-900 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 border-r-0"
+                       onkeydown="if(event.key === 'Enter') handleInput()">
+                <button onclick="handleInput()" id="send-button"
+                        class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-4 rounded-r-lg shadow-md transition duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    Send
+                </button>
+            </div>
+        </div>
+
+    </div>
+    
+    
+
+    <footer>
+        &copy; 2025 City Care Portal | Designed by Monika and Mrignayani | SIH PS 2025
+    </footer>
+    
+    
+    <script>
+        
+        let chatStep = 0; 
+        let userName = '';
+        let chatInitialized = false;
+        const chatHistory = document.getElementById('chat-history');
+        const userInput = document.getElementById('user-input');
+        const sendButton = document.getElementById('send-button');
+        const botName = 'CivicBot';
+
+        
+        function toggleChatbot() {
+            const chatWindow = document.getElementById('chatbot-window');
+            const fab = document.querySelector('.chatbot-fab');
+            
+            if (chatWindow.style.display === 'flex') {
+               
+                chatWindow.style.display = 'none';
+                
+                fab.innerHTML = `<svg class="chat-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.693a9 9 0 01-1.395-3.218z"></path></svg>`;
+            } else {
+            
+                chatWindow.style.display = 'flex';
+               
+                fab.innerHTML = `<svg class="chat-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>`;
+
+                if (!chatInitialized) {
+                   
+                    greetUser(); 
+                    chatInitialized = true;
+                }
+            }
+        }
+
+
+        
+        function addMessage(sender, content) {
+            const messageDiv = document.createElement('div');
+            const isBot = sender === 'bot';
+            
+            messageDiv.className = `flex ${isBot ? 'justify-start' : 'justify-end'} mb-4`;
+            
+            const contentDiv = document.createElement('div');
+            contentDiv.className = `max-w-xs lg:max-w-md p-3 rounded-xl shadow-lg transition duration-300 ${                isBot 
+                ? 'bg-gray-700 text-white rounded-tl-none' 
+                : 'bg-indigo-500 text-white rounded-br-none'
+            }`;            
+            const senderSpan = document.createElement('span');
+            senderSpan.className = `font-bold text-xs ${isBot ? 'text-indigo-300' : 'text-indigo-100'} block mb-1`;
+            senderSpan.textContent = isBot ? botName : 'You';
+
+            contentDiv.appendChild(senderSpan);
+            
+            const contentElement = document.createElement('div');
+            contentElement.innerHTML = content;
+            contentDiv.appendChild(contentElement);
+            
+            messageDiv.appendChild(contentDiv);
+            chatHistory.appendChild(messageDiv);
+            
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+        }
+
+        
+        function toggleInput(enabled) {
+            if (enabled) {
+                userInput.disabled = false;
+                sendButton.disabled = false;
+                sendButton.classList.remove('opacity-50');
+                userInput.placeholder = chatStep === 1 ? 'Type your name...' : 'Type your message...';
+                userInput.focus();
+            } else {
+                userInput.disabled = true;
+                sendButton.disabled = true;
+                sendButton.classList.add('opacity-50');
+                userInput.placeholder = 'Please select an option above...';
+            }
+        }
+
+       
+        function greetUser() {
+            addMessage('bot', "Hello! I'm CivicBot, your virtual assistant for connecting with your municipality. I can help you report issues and find information.");
+            setTimeout(() => {
+                addMessage('bot', "What is your name, please?");
+                chatStep = 1; 
+                toggleInput(true);
+            }, 1500);
+        }
+
+        
+        function handleInput() {
+            if (userInput.disabled) return; 
+            
+            const input = userInput.value.trim();
+            if (input === '') return;
+
+            addMessage('user', input);
+            userInput.value = '';
+
+            setTimeout(() => {
+                getBotResponse(input);
+            }, 800);
+        }
+
+        
+        window.handleOptionClick = function(option, optionName) {
+            addMessage('user', `**${option}. ${optionName}**`); 
+            
+            let responseText = '';
+            toggleInput(false);
+
+            switch (option) {
+                case 1: 
+                    responseText = `(1) Complaint Category: I see you want to report an issue. I will now direct you to the Report Page to fill out the details. *Simulation: This action would redirect you. Thank you, ${userName}. Your issue is being logged!*`;
+                    setTimeout(() => {
+                        addMessage('bot', responseText);
+                        askForContinuation(); 
+                    }, 1000);
+                    break;
+                case 2: 
+                    responseText = `(2) Image Analysis: Please upload your image and describe what it shows. You can type your description now.`;
+                    addMessage('bot', responseText);
+                    chatStep = 3;
+                    toggleInput(true);
+                    userInput.placeholder = 'Type your image description...';
+                    break;
+                case 3: 
+                    responseText = `(3) Nearby Services: I need your current location or a target address/pin code. Please type your location now.`;
+                    addMessage('bot', responseText);
+                    chatStep = 3;
+                    toggleInput(true);
+                    userInput.placeholder = 'Type your address or location...';
+                    break;
+                case 4: 
+                    const civicFacts = [
+                        "Did you know that participatory budgeting allows citizens to suggest and vote on how to spend part of a public budget?",
+                        "A typical municipal budget focuses 40% on public safety and 30% on infrastructure upkeep.",
+                        "Civic engagement drastically improves quality of life for everyone!",
+                    ];
+                    const fact = civicFacts[Math.floor(Math.random() * civicFacts.length)];
+                    responseText = `(4) Civic Education: Here is a quick fact about civic life: "${fact}"`;
+                    setTimeout(() => {
+                        addMessage('bot', responseText);
+                        askForContinuation();
+                    }, 1000);
+                    break;
+            }
+        }
+        
+        
+        function getBotResponse(input) {
+            let responseText = '';
+            toggleInput(false);
+
+            switch (chatStep) {
+                case 1: 
+                    userName = input.split(' ')[0];
+                    responseText = `It's great to meet you, ${userName}! Since you're already logged in, let's get started. How can I assist you with a civic issue today?`;
+                    addMessage('bot', responseText);
+                    showMainMenu();
+                    chatStep = 2; 
+                    break;
+
+                case 3: 
+                    responseText = `I've noted your input regarding your request ("${input}"). Your information has been saved for review.`;
+                    addMessage('bot', responseText);
+
+                    setTimeout(() => {
+                        addMessage('bot', "What would you like to do next?");
+                        askForContinuation();
+                    }, 1500);
+                    break;
+            }
+        }
+
+       
+        function showMainMenu() {
+            const menuOptions = [
+                { id: 1, name: 'Complaint Category Identification', icon: '🚨' },
+                { id: 2, name: 'Image Analysis (Issue Recognition)', icon: '📸' },
+                { id: 3, name: 'Nearby Services (Find Help)', icon: '📍' },
+                { id: 4, name: 'Civic Education (Quick Facts)', icon: '🎓' }
+            ];
+
+            const questionText = `What else can I help you with, ${userName}? Please click on one of the options below:`;
+            addMessage('bot', questionText);
+            
+            let buttonsHtml = '<div class="mt-2 space-y-2">';
+            menuOptions.forEach(option => {
+                buttonsHtml += `<button class="option-button flex items-center" onclick="handleOptionClick(${option.id}, '${option.name}')">
+                        <span class="mr-3 text-xl">${option.icon}</span>
+                        ${option.id}. ${option.name}
+                    </button>`;            
+            });
+            buttonsHtml += '</div>';
+
+            setTimeout(() => {
+                addMessage('bot', buttonsHtml);
+                toggleInput(false);
+            }, 1000);
+        }
+        
+       
+        function askForContinuation() {
+            chatStep = 4;
+            const questionText = `Is there anything else I can help you with today, ${userName}?`;
+            
+            const buttonsHtml = `<div class="mt-2 space-y-2">
+                    <button class="option-button flex items-center bg-indigo-600 hover:bg-indigo-700" onclick="handleContinuationClick(true)">
+                        <span class="mr-3 text-xl">✅</span> Yes, show the main menu
+                    </button>
+                    <button class="option-button flex items-center bg-gray-600 hover:bg-gray-500" onclick="handleContinuationClick(false)">
+                        <span class="mr-3 text-xl">👋</span> No, I'm done.
+                    </button>
+                </div>`;
+            setTimeout(() => {
+                addMessage('bot', questionText);
+                addMessage('bot', buttonsHtml);
+                toggleInput(false);
+            }, 500);
+        }
+
+        
+        window.handleContinuationClick = function(continueChat) {
+            toggleInput(false);
+            
+            if (continueChat) {
+                addMessage('user', "Yes, show the main menu");
+                showMainMenu();
+                chatStep = 2;
+            } else {
+                addMessage('user', "No, I'm done.");
+                setTimeout(() => {
+                    addMessage('bot', `Thank you for using CivicBot today, ${userName}. Have a wonderful day! Goodbye.`);
+                    
+                    userInput.disabled = true;
+                    sendButton.disabled = true;
+                    sendButton.classList.add('opacity-50');
+                    userInput.placeholder = 'Chat session ended.';
+                    userInput.value = '';
+                    chatStep = 5;
+                }, 1000);
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Care Portal - About Us</title>
+
+    <style>
+        
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        :root {
+            --color-primary: #1976D2; 
+            --color-accent: #00BCD4; 
+            --color-danger: #D32F2F; 
+            --color-bg-light: #F8F9FA;
+            --color-text-dark: #34495e;
+            --color-text-light: #596d81;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: var(--color-bg-light); display: flex; flex-direction: column; min-height: 100vh; }
+        header { background: linear-gradient(135deg, var(--color-primary), #1565C0); color: white; padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); z-index: 100; }
+        .title-area { display: flex; align-items: center; gap: 15px; }
+        .logo-icon { width: 40px; height: 40px; fill: white; }
+        header h1 { font-size: 26px; font-weight: 600; letter-spacing: 0.8px; }
+        nav a { color: rgba(255, 255, 255, 0.9); text-decoration: none; margin: 0 10px; padding: 10px 15px; font-weight: 500; transition: all 0.3s ease; border-radius: 8px; font-size: 15px; }
+        nav a:hover { color: var(--color-accent); background-color: rgba(255, 255, 255, 0.15); }
+        .moving-text { background-color: var(--color-danger); color: white; padding: 8px; font-size: 14px; white-space: nowrap; overflow: hidden; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
+        .moving-text p { display: inline-block; padding-left: 100%; animation: move 18s linear infinite; }
+        @keyframes move { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+        .container { display: flex; flex: 1; }
+        .sidebar { width: 280px; background-color: #ffffff; border-right: 1px solid #e9ecef; padding: 30px 0; box-shadow: 3px 0 10px rgba(0, 0, 0, 0.05); }
+        .sidebar h2 { color: var(--color-primary); font-size: 20px; font-weight: 700; margin-bottom: 25px; padding: 0 20px; border-bottom: 2px solid var(--color-accent); padding-bottom: 10px; margin-left: 20px; margin-right: 20px; }
+        .sidebar a { display: block; text-decoration: none; color: var(--color-text-dark); margin: 5px 0; padding: 15px 30px; transition: all 0.2s; font-size: 16px; font-weight: 500; border-left: 5px solid transparent; }
+        .sidebar a:hover { background-color: #E3F2FD; color: var(--color-primary); border-left: 5px solid var(--color-accent); }
+        .sidebar a.active { background-color: var(--color-primary); color: white; border-left: 5px solid var(--color-accent); font-weight: 600; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); }
+        .content { flex: 1; background-color: var(--color-bg-light); padding: 50px; text-align: center; }
+        .content-box { background-color: white; border-radius: 12px; padding: 40px; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); max-width: 900px; margin: 0 auto; text-align: left; animation: fadeIn 0.8s ease-out; }
+        .content-box h2 { color: var(--color-primary); font-size: 32px; font-weight: 700; margin-bottom: 25px; padding-bottom: 10px; border-bottom: 3px solid var(--color-accent); display: inline-block; }
+        .content-box h3 { color: var(--color-text-dark); font-size: 24px; font-weight: 600; margin-top: 25px; margin-bottom: 15px; border-left: 4px solid var(--color-accent); padding-left: 10px;}
+        .content-box p { color: var(--color-text-light); font-size: 17px; line-height: 1.7; margin-bottom: 15px; }
+        .content-box ul { list-style: disc; padding-left: 25px; margin-bottom: 20px; color: var(--color-text-light); }
+        .content-box ul li { margin-bottom: 8px; font-size: 16px; }
+        .highlight { color: var(--color-accent); font-weight: 600; }
+        footer { background: var(--color-text-dark); color: #ddd; text-align: center; padding: 18px; font-size: 14px; border-top: 5px solid var(--color-accent); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="title-area">
+            <svg class="logo-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15H9v-6h2v6zm4 0h-2v-6h2v6zm2-8h-1V7h-2v2h-1v-2H7v2H6V7h1V5h2v2h1V5h2v2h1V5h2v2h1v1h-1z"/>
+            </svg>
+            <h1>City Care Portal</h1>
+        </div>
+        <nav>
+            <a href="login.html">Login</a>
+            <a href="register.html">Register</a>
+            <a href="report.html">Report Issue</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <div class="moving-text">
+        <p>🚨 **SIH PS 2025: Crowdsourced Civic Resolution System** is Live! • Report, Track, Resolve • **Together, we build a better city!** 🛠️</p>
+    </div>
+
+    <div class="container">
+        <div class="sidebar">
+            <h2>Quick Links</h2>
+            <a href="about.html" class="active">About Us</a>
+            <a href="how.html">How It Works</a>
+            <a href="faq.html">FAQs</a>
+            <a href="feedback.html">Feedback</a>
+        </div>
+
+        <div class="content">
+            <div class="content-box">
+                <h2>Our Mission & The SIH PS 2025 Challenge</h2>
+                <p>The **City Care Portal** was developed as a direct solution to a critical problem statement (PS) identified in the **Smart India Hackathon (SIH) 2025**: the urgent need for a transparent, efficient, and data-driven system for citizens to report and track civic issues.</p>
+                
+                <h3>The Problem Statement</h3>
+                <p>The traditional grievance system often suffers from delayed response times, lack of geo-spatial data, and poor feedback loops. This leads to citizen frustration and unresolved municipal issues like persistent potholes, non-functional streetlights, and delayed garbage collection.</p>
+                
+                <h3>Our Solution: A 3-Pillar Approach</h3>
+                <p>We solve this by focusing on three key technology pillars:</p>
+                <ul>
+                    <li><strong class="highlight">Crowdsourced Reporting:</strong> Any registered citizen can instantly report an issue using their mobile device.</li>
+                    <li><strong class="highlight">Intelligent Validation:</strong> Automated processing using **Image Analysis (AI)** validates the existence and severity of the issue, eliminating fake reports.</li>
+                    <li><strong class="highlight">Real-Time Geo-tagging:</strong> Every report is automatically tagged with GPS coordinates, providing municipal teams with the precise location for immediate action.</li>
+                </ul>
+                <p>Our commitment is to bridge the gap between citizens and local governance, driving faster issue resolution and fostering a truly smart city environment.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2025 City Care Portal | Designed by Monika and Mrignayani | SIH PS 2025
+    </footer>
+</body>
+</html>

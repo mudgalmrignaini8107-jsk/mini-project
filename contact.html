@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - City Care Portal</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background: #f2f6ff;
+            padding: 50px 20px;
+        }
+
+        .container {
+            max-width: 520px;
+            margin: auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 14px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        label {
+            font-weight: 500;
+            display: block;
+            margin-bottom: 6px;
+            color: #333;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 2px solid #dcdcdc;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #4a90e2;
+            outline: none;
+            box-shadow: 0 0 8px rgba(74, 144, 226, 0.3);
+        }
+
+        button {
+            width: 100%;
+            background: #4a90e2;
+            color: white;
+            border: none;
+            padding: 14px 0;
+            border-radius: 10px;
+            font-size: 17px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: 600;
+        }
+
+        button:hover {
+            background: #3378c4;
+        }
+
+        #output {
+            margin-top: 15px;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Contact Us</h2>
+
+        <form id="contactForm">
+            <label>Your Name</label>
+            <input type="text" id="name" required>
+
+            <label>Your Email</label>
+            <input type="email" id="email" required>
+
+            <label>Subject</label>
+            <input type="text" id="subject" required>
+
+            <label>Message</label>
+            <textarea id="message" rows="4" required></textarea>
+
+            <button type="submit">Send Message</button>
+        </form>
+
+        <div id="output"></div>
+    </div>
+
+    <script>
+        const SUPABASE_URL = "https://gepsqeueluuztzhrrkqf.supabase.co";
+        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdlcHNxZXVlbHV1enR6aHJya3FmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMyMTkzNjksImV4cCI6MjA3ODc5NTM2OX0.GSEJOYLZKa00DQofSeTMjIXsOf2Z7djUGG85XOMqY6A";
+
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        document.getElementById("contactForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            let name = document.getElementById("name").value;
+            let email = document.getElementById("email").value;
+            let subject = document.getElementById("subject").value;
+            let message = document.getElementById("message").value;
+
+            const { error } = await supabaseClient
+                .from("contact_messages")
+                .insert([{ name, email, subject, message }]);
+
+            if (error) {
+                document.getElementById("output").innerHTML =
+                    "<span style='color:red;'>Error: " + error.message + "</span>";
+            } else {
+                document.getElementById("output").innerHTML =
+                    "<span style='color:green;'>Message sent successfully!</span>";
+
+                document.getElementById("contactForm").reset();
+            }
+        });
+    </script>
+
+</body>
+</html>
